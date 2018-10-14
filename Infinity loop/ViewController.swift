@@ -16,32 +16,28 @@ class ViewController: UIViewController {
     @IBOutlet var cloud4: UIImageView!
     @IBOutlet var cloud5: UIImageView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        animateCloud(cloud1,10)
-        animateCloud(cloud2,4)
-        animateCloud(cloud3,13)
-        animateCloud(cloud4,1)
-        animateCloud(cloud5,30)
-
+        //Call Function for moving the clouds
+        moveIt(cloud1,10)
+        moveIt(cloud2,4)
+        moveIt(cloud3,13)
+        moveIt(cloud4,20)
+        moveIt(cloud5,30)
         
     }
     
-    func animateCloud(_ cloud: UIImageView,_ speed:CGFloat) {
+    func moveIt(_ imageView: UIImageView,_ speed:CGFloat) {
         let speeds = speed
-        let cloudSpeed = speeds / view.frame.size.width
-        let averageSpeed = (view.frame.size.width - cloud.frame.origin.x) * cloudSpeed
+        let imageSpeed = speeds / view.frame.size.width
+        let averageSpeed = (view.frame.size.width - imageView.frame.origin.x) * imageSpeed
         UIView.animate(withDuration: TimeInterval(averageSpeed), delay: 0.0, options: .curveLinear, animations: {
-            cloud.frame.origin.x = self.view.frame.size.width
+            imageView.frame.origin.x = self.view.frame.size.width
         }, completion: { (_) in
-            cloud.frame.origin.x = -cloud.frame.size.width
-            self.animateCloud(cloud,speeds)
+            imageView.frame.origin.x = -imageView.frame.size.width
+            self.moveIt(imageView,speeds)
         })
     }
 
